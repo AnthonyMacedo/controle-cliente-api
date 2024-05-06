@@ -1,0 +1,36 @@
+version: '3.9'
+
+networks:
+ api-network:
+  driver: bridge
+  
+services:
+ db-api:
+  image: postgres:14.10-alpine
+  environment:
+   POSTGRES_USER: postgres
+   POSTGRES_PASSWORD: admin
+   POSTGRES_DB: db-despesas-orcamentarias
+  ports:
+   - "5432:5432"
+  networks:
+   - api-network
+  volumes:
+   - ./scripts:/docker-entrypoint-initdb.d
+   - pg_data:/var/lib/postgresql/data/
+  restart: always
+ 
+ application:
+  image: despesas-orcamentarias-api
+  command: ["/wait-for-it.sh", "db-api:5432", "-t", "30", "--", "java", "-jar", "/api.jar"]
+  environment:
+   DB_HOST: db-api
+  ports:
+   - "8080:8080"
+  networks:
+   - api-network
+  depends_on:
+   - db-api
+   
+volumes:
+  pg_data:   
