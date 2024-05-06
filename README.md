@@ -8,6 +8,7 @@ Este é um projeto de exemplo para um sistema de cadastro de clientes, onde os d
 - Docker
 - Maven
 - Flyway
+- Swagger
   
 ## Pré-requisitos
 Certifique-se de ter as seguintes tecnologias instaladas em sua máquina:
@@ -45,3 +46,5 @@ docker-compose up --build
 Isso iniciará o contêiner Docker com o PostgreSQL 14 com o database criado.
 
 O projeto deve estar disponível em http://localhost:8080/controle-cliente-api.
+
+Acesse a documentação da API Swagger em: http://localhost:8080/swagger-ui/index.html.
